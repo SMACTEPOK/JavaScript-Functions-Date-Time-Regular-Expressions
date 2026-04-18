@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Завдання 2.1 - Поточна дата та час</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #000;
+            color: #e7e9ea;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .card {
+            background-color: #16181c;
+            border-radius: 16px;
+            padding: 30px;
+            width: 450px;
+            border: 1px solid #2f3336;
+            text-align: center;
+        }
+        h2 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #2f3336;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #1d9bf0;
+            border: none;
+            border-radius: 9999px;
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+        button:hover { background-color: #1a8cd8; }
+        .info-block {
+            background-color: #000;
+            border-radius: 12px;
+            border: 1px solid #2f3336;
+            padding: 20px;
+            text-align: left;
+        }
+        .info-line {
+            margin: 12px 0;
+            font-size: 16px;
+        }
+        .label {
+            color: #71767b;
+            font-weight: 500;
+        }
+        .value {
+            color: #00ba7c;
+            font-weight: 600;
+        }
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #71767b;
+            text-decoration: none;
+            font-size: 13px;
+        }
+        .back-link:hover { color: #1d9bf0; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h2>Завдання 2.1. Поточна дата та час</h2>
+        <button onclick="showCurrentDateTime()">Отримати поточну дату та час</button>
+        <div class="info-block" id="dateTimeBlock">
+            <div class="info-line"><span class="label">Дата:</span> <span class="value" id="dateValue">---</span></div>
+            <div class="info-line"><span class="label">День тижня:</span> <span class="value" id="weekdayValue">---</span></div>
+            <div class="info-line"><span class="label">Час:</span> <span class="value" id="timeValue">---</span></div>
+        </div>
+        <a href="index.html" class="back-link">← На головну</a>
+    </div>
+    <script>
+        function showCurrentDateTime() {
+            const now = new Date();
+           
+            const months = ['січня', 'лютого', 'березня', 'квітня', 'травня', 'червня',
+                           'липня', 'серпня', 'вересня', 'жовтня', 'листопада', 'грудня'];
+            const weekdays = ['неділя', 'понеділок', 'вівторок', 'середа', 'четвер', 'п\'ятниця', 'субота'];
+           
+            const day = now.getDate();
+            const month = months[now.getMonth()];
+            const year = now.getFullYear();
+            const weekday = weekdays[now.getDay()];
+           
+            const hours = now.getHours().toString().padStart(2, '0');
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+           
+            document.getElementById('dateValue').innerHTML = `${day} ${month} ${year} року`;
+            document.getElementById('weekdayValue').innerHTML = weekday;
+            document.getElementById('timeValue').innerHTML = `${hours}:${minutes}`;
+        }
+    </script>
+</body>
+</html>

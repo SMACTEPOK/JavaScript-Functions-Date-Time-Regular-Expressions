@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Завдання 1.4 - Універсальна функція (сума або максимум)</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #000;
+            color: #e7e9ea;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .card {
+            background-color: #16181c;
+            border-radius: 16px;
+            padding: 30px;
+            width: 580px;
+            border: 1px solid #2f3336;
+        }
+        h2 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #2f3336;
+        }
+        label {
+            display: block;
+            font-size: 14px;
+            margin-bottom: 6px;
+            font-weight: 500;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            background-color: #000;
+            border: 1px solid #2f3336;
+            border-radius: 8px;
+            color: #e7e9ea;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+        input:focus { outline: none; border-color: #1d9bf0; }
+        select {
+            width: 100%;
+            padding: 10px;
+            background-color: #000;
+            border: 1px solid #2f3336;
+            border-radius: 8px;
+            color: #e7e9ea;
+            font-size: 14px;
+            margin-bottom: 15px;
+            cursor: pointer;
+        }
+        select:focus { outline: none; border-color: #1d9bf0; }
+        .radio-group {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 15px;
+            padding: 10px;
+            background-color: #000;
+            border-radius: 8px;
+            border: 1px solid #2f3336;
+        }
+        .radio-group label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 0;
+            cursor: pointer;
+        }
+        .radio-group input {
+            width: auto;
+            margin-bottom: 0;
+            cursor: pointer;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #1d9bf0;
+            border: none;
+            border-radius: 9999px;
+            color: white;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 8px;
+        }
+        button:hover { background-color: #1a8cd8; }
+        .example {
+            font-size: 12px;
+            color: #71767b;
+            margin-bottom: 15px;
+            padding: 8px;
+            background-color: #1e1e1e;
+            border-radius: 8px;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #000;
+            border-radius: 12px;
+            border: 1px solid #2f3336;
+        }
+        .result-item {
+            margin: 8px 0;
+            padding: 8px;
+            border-left: 2px solid #1d9bf0;
+            padding-left: 12px;
+        }
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #71767b;
+            text-decoration: none;
+            font-size: 13px;
+        }
+        .back-link:hover { color: #1d9bf0; }
+        .result-value {
+            color: #00ba7c;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h2>Завдання 1.4. Універсальна функція</h2>
+        <label>Введіть параметри (числа та слова через пробіл):</label>
+        <input type="text" id="paramsInput" placeholder="Jane 1 3 like 5 9 read 4 book">
+       
+        <label>Виберіть дію для чисел:</label>
+        <div class="radio-group">
+            <label>
+                <input type="radio" name="action" value="sum" checked> Сума чисел
+            </label>
+            <label>
+                <input type="radio" name="action" value="max"> Максимальне число
+            </label>
+        </div>
+       
+        <div class="example">
+            Приклад: "Jane 1 3 like 5 9 read 4 book"<br>
+            • Сума: 1+3+5+9+4 = 22<br>
+            • Максимум: 9<br>
+            • Речення: "Jane like read book"
+        </div>
+       
+        <button id="processBtn">Обробити</button>
+       
+        <div class="result" id="result">
+            <div class="result-item" id="numberResult"></div>
+            <div class="result-item" id="sentenceResult"></div>
+        </div>
+       
+        <a href="index.html" class="back-link">← На головну</a>
+    </div>
+    <script>
+        function processParameters(action, ...args) {
+            const numbers = [];
+            const words = [];
+           
+            for (let arg of args) {
+                if (typeof arg === 'number' && !isNaN(arg)) {
+                    numbers.push(arg);
+                } else if (typeof arg === 'string' && arg.trim() !== '') {
+                    words.push(arg);
+                }
+            }
+           
+            let numberResult = null;
+            if (numbers.length > 0) {
+                if (action === 'sum') {
+                    numberResult = numbers.reduce((acc, val) => acc + val, 0);
+                } else if (action === 'max') {
+                    numberResult = Math.max(...numbers);
+                }
+            }
+           
+            const sentence = words.join(' ');
+           
+            return { numberResult, sentence };
+        }
+       
+        function parseInputString(inputStr) {
+            const parts = inputStr.trim().split(/\s+/);
+            const result = [];
+           
+            for (let part of parts) {
+                const num = parseFloat(part);
+                if (!isNaN(num) && part !== '' && /^-?\d+(\.\d+)?$/.test(part)) {
+                    result.push(num);
+                } else {
+                    result.push(part);
+                }
+            }
+            return result;
+        }
+       
+        const paramsInput = document.getElementById('paramsInput');
+        const processBtn = document.getElementById('processBtn');
+        const numberResultDiv = document.getElementById('numberResult');
+        const sentenceResultDiv = document.getElementById('sentenceResult');
+       
+        function getSelectedAction() {
+            const radios = document.querySelectorAll('input[name="action"]');
+            for (let radio of radios) {
+                if (radio.checked) return radio.value;
+            }
+            return 'sum';
+        }
+       
+        function process() {
+            const inputStr = paramsInput.value.trim();
+           
+            if (inputStr === '') {
+                numberResultDiv.innerHTML = '⚠️ <span style="color:#71767b;">Введіть параметри</span>';
+                sentenceResultDiv.innerHTML = '';
+                return;
+            }
+           
+            const args = parseInputString(inputStr);
+           
+            const action = getSelectedAction();
+           
+            const { numberResult, sentence } = processParameters(action, ...args);
+           
+            const actionText = action === 'sum' ? 'Сума чисел' : 'Максимальне число';
+           
+            if (numberResult !== null) {
+                numberResultDiv.innerHTML = `${actionText}: <strong class="result-value">${numberResult}</strong>`;
+            } else {
+                numberResultDiv.innerHTML = `${actionText}: <span style="color:#71767b;">немає чисел</span>`;
+            }
+           
+            sentenceResultDiv.innerHTML = `Речення: <strong class="result-value">${sentence || 'немає слів'}</strong>`;
+        }
+       
+        processBtn.addEventListener('click', process);
+        paramsInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') process(); });
+       
+        setTimeout(() => {
+            paramsInput.value = 'Jane 1 3 like 5 9 read 4 book';
+            process();
+        }, 100);
+    </script>
+</body>
+</html>

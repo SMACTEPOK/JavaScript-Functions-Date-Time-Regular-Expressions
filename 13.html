@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Завдання 1.3 - Створення заголовків</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #000;
+            color: #e7e9ea;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .card {
+            background-color: #16181c;
+            border-radius: 16px;
+            padding: 30px;
+            width: 500px;
+            border: 1px solid #2f3336;
+        }
+        h2 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #2f3336;
+        }
+        label {
+            display: block;
+            font-size: 14px;
+            margin-bottom: 6px;
+            font-weight: 500;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            background-color: #000;
+            border: 1px solid #2f3336;
+            border-radius: 8px;
+            color: #e7e9ea;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+        input:focus { outline: none; border-color: #1d9bf0; }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #1d9bf0;
+            border: none;
+            border-radius: 9999px;
+            color: white;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 8px;
+        }
+        button:hover { background-color: #1a8cd8; }
+        .reset-btn {
+            background-color: #2f3336;
+            margin-top: 8px;
+        }
+        .headers-container {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #000;
+            border-radius: 12px;
+            border: 1px solid #2f3336;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        .headers-container h2 {
+            margin: 10px 0;
+            padding-bottom: 0;
+            border-bottom: none;
+            font-size: 18px;
+        }
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #71767b;
+            text-decoration: none;
+            font-size: 13px;
+        }
+        .back-link:hover { color: #1d9bf0; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h2>Завдання 1.3. Створення заголовків h2</h2>
+        <label>Кількість заголовків (N):</label>
+        <input type="number" id="countInput" min="1" max="20" value="5">
+        <button id="createBtn">Створити заголовки</button>
+        <button id="resetBtn" class="reset-btn">Очистити</button>
+        <div class="headers-container" id="headersContainer"></div>
+        <a href="index.html" class="back-link">← На головну</a>
+    </div>
+    <script>
+        function createHeaders(N) {
+            const container = document.getElementById('headersContainer');
+            container.innerHTML = '';
+            for (let i = 1; i <= N; i++) {
+                const h2 = document.createElement('h2');
+                h2.textContent = `Header${i}`;
+                container.appendChild(h2);
+            }
+        }
+        const createBtn = document.getElementById('createBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        const countInput = document.getElementById('countInput');
+        createBtn.addEventListener('click', () => {
+            let N = parseInt(countInput.value);
+            if (isNaN(N) || N < 1) N = 1;
+            if (N > 50) N = 50;
+            createHeaders(N);
+        });
+        resetBtn.addEventListener('click', () => {
+            document.getElementById('headersContainer').innerHTML = '';
+            countInput.value = '5';
+        });
+    </script>
+</body>
+</html>

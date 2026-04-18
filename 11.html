@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Завдання 1.1 - Зміна розміру шрифту</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #000;
+            color: #e7e9ea;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .card {
+            background-color: #16181c;
+            border-radius: 16px;
+            padding: 30px;
+            width: 480px;
+            border: 1px solid #2f3336;
+        }
+        h2 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #2f3336;
+        }
+        label {
+            display: block;
+            font-size: 14px;
+            margin-bottom: 6px;
+            font-weight: 500;
+        }
+        input, select {
+            width: 100%;
+            padding: 10px;
+            background-color: #000;
+            border: 1px solid #2f3336;
+            border-radius: 8px;
+            color: #e7e9ea;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+        input:focus, select:focus { outline: none; border-color: #1d9bf0; }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #1d9bf0;
+            border: none;
+            border-radius: 9999px;
+            color: white;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 8px;
+        }
+        button:hover { background-color: #1a8cd8; }
+        .display-text {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #000;
+            border-radius: 12px;
+            border: 1px solid #2f3336;
+            text-align: center;
+        }
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #71767b;
+            text-decoration: none;
+            font-size: 13px;
+        }
+        .back-link:hover { color: #1d9bf0; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h2>Завдання 1.1. Зміна розміру шрифту</h2>
+        <label>Введіть текст:</label>
+        <input type="text" id="textInput" placeholder="Наприклад: Hello World!" value="Привіт, світ!">
+        <label>Розмір шрифту (px, em, rem, %):</label>
+        <input type="text" id="fontSizeInput" placeholder="Наприклад: 24px, 2em, 150%" value="24px">
+        <button id="applyBtn">Застосувати стиль</button>
+        <div class="display-text" id="outputText">Тут з'явиться текст із заданим розміром</div>
+        <a href="index.html" class="back-link">← На головну</a>
+    </div>
+    <script>
+        function setFontSize(text, fontSize) {
+            const outputDiv = document.getElementById('outputText');
+            outputDiv.textContent = text;
+            outputDiv.style.fontSize = fontSize;
+        }
+        const applyBtn = document.getElementById('applyBtn');
+        const textInput = document.getElementById('textInput');
+        const fontSizeInput = document.getElementById('fontSizeInput');
+        applyBtn.addEventListener('click', () => {
+            const text = textInput.value.trim();
+            const fontSize = fontSizeInput.value.trim();
+            if (text === '') {
+                setFontSize('Будь ласка, введіть текст', fontSize || '16px');
+            } else {
+                setFontSize(text, fontSize || '16px');
+            }
+        });
+    </script>
+</body>
+</html>

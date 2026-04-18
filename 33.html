@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Завдання 3.3 - camelCase → snake_case</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #000;
+            color: #e7e9ea;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .card {
+            background-color: #16181c;
+            border-radius: 16px;
+            padding: 30px;
+            width: 450px;
+            border: 1px solid #2f3336;
+        }
+        h2 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #2f3336;
+        }
+        label {
+            display: block;
+            font-size: 14px;
+            margin-bottom: 6px;
+            font-weight: 500;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            background-color: #000;
+            border: 1px solid #2f3336;
+            border-radius: 8px;
+            color: #e7e9ea;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+        input:focus { outline: none; border-color: #1d9bf0; }
+        .example {
+            font-size: 12px;
+            color: #71767b;
+            margin-bottom: 15px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #1d9bf0;
+            border: none;
+            border-radius: 9999px;
+            color: white;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        button:hover { background-color: #1a8cd8; }
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #000;
+            border-radius: 12px;
+            border: 1px solid #2f3336;
+            text-align: center;
+            font-size: 18px;
+            font-weight: 600;
+            color: #00ba7c;
+            word-break: break-all;
+        }
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #71767b;
+            text-decoration: none;
+            font-size: 13px;
+        }
+        .back-link:hover { color: #1d9bf0; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h2>Завдання 3.3. camelCase → snake_case</h2>
+        <label>Введіть змінну в стилі camelCase:</label>
+        <input type="text" id="camelInput" placeholder="myVariable, newBrandProduct">
+        <div class="example">Приклади: myVariable → my_variable | newBrandProduct → new_brand_product</div>
+        <button id="convertBtn">Перетворити</button>
+        <div class="result" id="result">---</div>
+        <a href="index.html" class="back-link">← На головну</a>
+    </div>
+    <script>
+        function toSnakeCase(camelStr) {
+            return camelStr.replace(/([A-Z])/g, '_$1').toLowerCase();
+        }
+       
+        const camelInput = document.getElementById('camelInput');
+        const convertBtn = document.getElementById('convertBtn');
+        const resultDiv = document.getElementById('result');
+       
+        function convert() {
+            let val = camelInput.value.trim();
+            if (val === '') {
+                resultDiv.innerHTML = '---';
+                return;
+            }
+            const snakeCase = toSnakeCase(val);
+            resultDiv.innerHTML = snakeCase;
+        }
+       
+        convertBtn.addEventListener('click', convert);
+        camelInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') convert(); });
+    </script>
+</body>
+</html>
